@@ -1,5 +1,5 @@
 import pandas as pd
-
+import pickle
 df = pd.DataFrame([]) #creating a blank dataframe
 
 
@@ -12,6 +12,7 @@ df = pd.DataFrame([]) #creating a blank dataframe
 """
 
 def source_data(path : str) -> None:
+    global df
     temp_df = pd.read_csv(path)
     df = temp_df.copy()
     del temp_df
@@ -41,3 +42,8 @@ def data_cleaning()->None:
     df.dropna(inplace=True) #drop missing values. DO THIS INPLACE meaning in the same object!
 
     df.reset_index(drop=True, inplace=True)
+
+def preserve_model()->None:
+    pickle.dump( df, open("clean_data.pkl", "wb")  )
+
+
